@@ -9,6 +9,7 @@ COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 
 COPY . .
+RUN rm -rf /usr/src/app/.git
 
 # for Devlopment with hot reload
 RUN go install github.com/cosmtrek/air@latest
