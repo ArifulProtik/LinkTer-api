@@ -1,0 +1,45 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=${DBUSER}
+      - POSTGRES_PASSWORD=${DBPASS}
+      - POSTGRES_DB=${DBNAME}
+    ports:
+      - 5432:5432
+    volumes:
+      - database_postgres:/var/lib/postgresql/data
+    networks:
+      - mynet
+    hostname: 'localhost'
+
+  adminer:
+    image: adminer
+    depends_on:
+      - postgres
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - mynet
+
+  app:
+    build: .
+    #   volume specification is needed for hot reload support other wise hot reload
+    #   wont trigger
+    volumes:
+      - ./:/usr/src/app/
+      - /etc/localtime:/etc/localtime:ro
+
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgres
+    networks:
+      - mynet
+
+volumes:
+  database_postgres:
+networks:
+  mynet:
