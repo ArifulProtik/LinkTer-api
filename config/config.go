@@ -25,7 +25,7 @@ type Postgres struct {
 	Dbport     string `env:"DBPORT"`
 	Dbpassword string `env:"DBPASS"`
 	DbUser     string `env:"DBUSER"`
-	DBNAME     string `env:"DBNAME`
+	DBNAME     string `env:"DBNAME"`
 }
 
 // New Return New config for the application.

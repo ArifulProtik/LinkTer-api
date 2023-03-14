@@ -29,6 +29,7 @@ services:
     #   volume specification is needed for hot reload support other wise hot reload
     #   wont trigger
     volumes:
+      # volume allocation only for Dev as it is required for Air
       - ./:/usr/src/app/
       - /etc/localtime:/etc/localtime:ro
 
@@ -36,6 +37,8 @@ services:
       - '8000:8000'
     depends_on:
       - postgres
+    env_file:
+      - .env
     networks:
       - mynet
 
