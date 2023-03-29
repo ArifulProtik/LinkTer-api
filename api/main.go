@@ -2,7 +2,9 @@ package main
 
 import (
 	"LinkTer-api/config"
+	"LinkTer-api/internel/controller"
 	"LinkTer-api/internel/server"
+	"LinkTer-api/internel/service"
 	"LinkTer-api/pkg/logger"
 )
 
@@ -16,5 +18,11 @@ func main() {
 	logger.InitLogger()
 	logger.Info(c.Server.Port)
 	server := server.New(logger)
+
+	services := service.New()
+	control := controller.New(logger, services)
+	group := server.Server.Group("api/v1")
+	Router(group, control)
+
 	server.Run(c.Server.Port)
 }

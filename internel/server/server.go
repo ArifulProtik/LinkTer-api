@@ -13,30 +13,30 @@ import (
 )
 
 type Server struct {
-	server *echo.Echo
+	Server *echo.Echo
 	log    logger.Logger
 }
 
 func New(log logger.Logger) *Server {
 	return &Server{
-		server: echo.New(),
+		Server: echo.New(),
 		log:    log,
 	}
 }
 
 func (s *Server) Run(port string) {
-	s.server.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+	s.Server.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "method=${method}, uri=${uri}, status=${status}\n",
 	}))
 
-	s.server.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	s.Server.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
 		AllowHeaders: []string{echo.HeaderContentType, echo.HeaderAccept},
 	}))
 
 	go func() {
 		s.log.Info(port)
-		if err := s.server.Start(port); err != nil && err != http.ErrServerClosed {
+		if err := s.Server.Start(port); err != nil && err != http.ErrServerClosed {
 			s.log.Fatal("Shutting Down the Server")
 		}
 	}()
@@ -45,7 +45,7 @@ func (s *Server) Run(port string) {
 	<-quit
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	if err := s.server.Shutdown(ctx); err != nil {
+	if err := s.Server.Shutdown(ctx); err != nil {
 		s.log.Fatal(err)
 	}
 
