@@ -21,9 +21,8 @@ func (User) Fields() []ent.Field {
 		field.String("username").Unique().NotEmpty(),
 		field.String("email").Unique().NotEmpty(),
 		field.String("profile_pic").Optional(),
-		field.Text("password").NotEmpty(),
+		field.Text("password").NotEmpty().Sensitive(),
 		field.Time("created_at").Default(time.Now),
-		field.Time("updated_at"),
 	}
 }
 

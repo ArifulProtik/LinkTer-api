@@ -8,4 +8,5 @@ import (
 
 func Router(group *echo.Group, control *controller.Controller) {
 	group.GET("/", control.HealthCheck)
+	group.POST("/signup", control.Signup)
 }

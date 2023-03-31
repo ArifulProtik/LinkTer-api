@@ -28,3 +28,7 @@ func (c *Controller) HealthCheck(e echo.Context) error {
 		"Ping": "Ok",
 	})
 }
+
+type ErrorResponse struct {
+	Msg interface{} `json:"msg"`
+}
