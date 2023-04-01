@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"LinkTer-api/config"
 	"LinkTer-api/internel/service"
 	"LinkTer-api/pkg/logger"
 	"LinkTer-api/pkg/lvalidator"
@@ -13,9 +14,10 @@ type Controller struct {
 	log      logger.Logger
 	service  *service.Service
 	validate *lvalidator.Lvalidator
+	cfg      *config.Config
 }
 
-func New(log logger.Logger, serv *service.Service) *Controller {
+func New(log logger.Logger, serv *service.Service, cfg *config.Config) *Controller {
 	return &Controller{
 		log:      log,
 		service:  serv,

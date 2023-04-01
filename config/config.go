@@ -13,6 +13,7 @@ type Config struct {
 	Author  string `env:"AUTHOR"`
 	Server
 	Postgres
+	Tokens
 }
 
 type Server struct {
@@ -26,6 +27,12 @@ type Postgres struct {
 	Dbpassword string `env:"DBPASS"`
 	DbUser     string `env:"DBUSER"`
 	DBNAME     string `env:"DBNAME"`
+}
+
+type Tokens struct {
+	PrivateKey string `env:"JWT_PRIVATE_KEY="`
+	AcTokenEXP string `env:"ACCESS_TOKEN_TIME"`
+	RfTokenEXP string `env:"REFRESH_TOKEN_TIME"`
 }
 
 // New Return New config for the application.

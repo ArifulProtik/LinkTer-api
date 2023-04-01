@@ -21,7 +21,7 @@ func main() {
 	server := server.New(logger)
 	dbclient := ent.NewDbClient(logger, c)
 	services := service.New(logger, dbclient)
-	control := controller.New(logger, services)
+	control := controller.New(logger, services, c)
 	group := server.Server.Group("api/v1")
 	Router(group, control)
 
