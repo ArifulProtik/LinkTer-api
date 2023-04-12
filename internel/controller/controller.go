@@ -2,6 +2,7 @@ package controller
 
 import (
 	"LinkTer-api/config"
+	"LinkTer-api/internel/auth"
 	"LinkTer-api/internel/service"
 	"LinkTer-api/pkg/logger"
 	"LinkTer-api/pkg/lvalidator"
@@ -15,6 +16,7 @@ type Controller struct {
 	service  *service.Service
 	validate *lvalidator.Lvalidator
 	cfg      *config.Config
+	auth     *auth.Auth
 }
 
 func New(log logger.Logger, serv *service.Service, cfg *config.Config) *Controller {
@@ -22,6 +24,8 @@ func New(log logger.Logger, serv *service.Service, cfg *config.Config) *Controll
 		log:      log,
 		service:  serv,
 		validate: lvalidator.New(),
+		cfg:      cfg,
+		auth:     auth.New(cfg),
 	}
 }
 

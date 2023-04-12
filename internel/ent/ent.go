@@ -4,6 +4,7 @@ package ent
 
 import (
 	"LinkTer-api/internel/ent/profile"
+	"LinkTer-api/internel/ent/session"
 	"LinkTer-api/internel/ent/user"
 	"context"
 	"errors"
@@ -67,6 +68,7 @@ type OrderFunc func(*sql.Selector)
 func columnChecker(table string) func(string) error {
 	checks := map[string]func(string) bool{
 		profile.Table: profile.ValidColumn,
+		session.Table: session.ValidColumn,
 		user.Table:    user.ValidColumn,
 	}
 	check, ok := checks[table]

@@ -45,7 +45,7 @@ func (a *Auth) GenAccesstoken(id *uuid.UUID) (string, error) {
 	}
 	return tokenstring, nil
 }
-func (a *Auth) Refreshtoken(id *uuid.UUID) (string, error) {
+func (a *Auth) GenRefreshtoken(id *uuid.UUID) (string, error) {
 	duration, err := time.ParseDuration(a.cfg.Tokens.RfTokenEXP)
 	if err != nil {
 		return "", err

@@ -18,6 +18,20 @@ var (
 		Columns:    ProfilesColumns,
 		PrimaryKey: []*schema.Column{ProfilesColumns[0]},
 	}
+	// SessionsColumns holds the columns for the "sessions" table.
+	SessionsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "user_id", Type: field.TypeUUID},
+		{Name: "token", Type: field.TypeString, Size: 2147483647},
+		{Name: "ip", Type: field.TypeString},
+		{Name: "started_time", Type: field.TypeTime},
+	}
+	// SessionsTable holds the schema information for the "sessions" table.
+	SessionsTable = &schema.Table{
+		Name:       "sessions",
+		Columns:    SessionsColumns,
+		PrimaryKey: []*schema.Column{SessionsColumns[0]},
+	}
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
@@ -37,6 +51,7 @@ var (
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		ProfilesTable,
+		SessionsTable,
 		UsersTable,
 	}
 )

@@ -4,6 +4,7 @@ package ent
 
 import (
 	"LinkTer-api/internel/ent/schema"
+	"LinkTer-api/internel/ent/session"
 	"LinkTer-api/internel/ent/user"
 	"time"
 
@@ -14,6 +15,24 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
+	sessionFields := schema.Session{}.Fields()
+	_ = sessionFields
+	// sessionDescToken is the schema descriptor for token field.
+	sessionDescToken := sessionFields[2].Descriptor()
+	// session.TokenValidator is a validator for the "token" field. It is called by the builders before save.
+	session.TokenValidator = sessionDescToken.Validators[0].(func(string) error)
+	// sessionDescIP is the schema descriptor for ip field.
+	sessionDescIP := sessionFields[3].Descriptor()
+	// session.IPValidator is a validator for the "ip" field. It is called by the builders before save.
+	session.IPValidator = sessionDescIP.Validators[0].(func(string) error)
+	// sessionDescStartedTime is the schema descriptor for started_time field.
+	sessionDescStartedTime := sessionFields[4].Descriptor()
+	// session.DefaultStartedTime holds the default value on creation for the started_time field.
+	session.DefaultStartedTime = sessionDescStartedTime.Default.(func() time.Time)
+	// sessionDescID is the schema descriptor for id field.
+	sessionDescID := sessionFields[0].Descriptor()
+	// session.DefaultID holds the default value on creation for the id field.
+	session.DefaultID = sessionDescID.Default.(func() uuid.UUID)
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescName is the schema descriptor for name field.
